@@ -18,7 +18,6 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: '首页',
       component: IndexP,
       beforeEnter:(to,from,next)=>{
       	sessionStorage.setItem('nav','0')
