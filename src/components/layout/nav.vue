@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<el-menu  :default-active="activaNav" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse" :router="true" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
-			<el-menu-item index="0" @click="collapse()">
+			<el-menu-item @click="collapse()">
 				<i :class="isCollapse ? rightArrow : leftArrow"></i>
 				<span slot="title">展开/收起</span>
 			</el-menu-item>
