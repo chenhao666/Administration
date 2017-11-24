@@ -3,10 +3,10 @@
 		<div class="loginBg">
 			<div class="loginForm">
 				<div class="login_title">系统登录</div>
-				<el-input placeholder="请输入用户名" v-model="username" class="loginInput">
+				<el-input placeholder="请输入用户名" v-model="username" class="loginInput" autofocus>
 				    <template slot="prepend"><span class="iconfont icon-yonghuming"></span></template>
 				</el-input>
-				<el-input type="password" placeholder="请输入密码" v-model="password" auto-complete="off" class="loginInput">
+				<el-input type="password" @keyup.enter.native="submitForm" placeholder="请输入密码" v-model="password" auto-complete="off" class="loginInput">
 				    <template slot="prepend"><span class="iconfont icon-mima"></span></template>
 				</el-input>
 				<el-button type="primary" class="loginSubmit" @click="submitForm">登录</el-button>
