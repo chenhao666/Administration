@@ -39,7 +39,8 @@ export default {
 }
 .v-aside{
 	position: absolute;
-	min-height: 100%;
+	height: 100%;
+	overflow-y:auto;
 	top: 0px;
 	z-index: 2;
 	padding-top: 61px;
@@ -50,7 +51,8 @@ export default {
 	position: absolute;
 	top: 0px;
 	width: 100%;
-	min-height: 100%;
+	height: 100%;
+	overflow-y: auto;
 	padding-top: 61px;
 	box-sizing: border-box;
 	z-index: 1;
