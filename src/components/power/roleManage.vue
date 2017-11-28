@@ -274,7 +274,7 @@ export default {
       },
       handleDelete(index, row) {
         console.log(index, row);
-        this.$confirm('确定删除当前角色?', '提示', {
+        this.$confirm('确定删除当前权限节点吗?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
