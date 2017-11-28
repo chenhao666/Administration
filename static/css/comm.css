@@ -45,6 +45,8 @@ h1, h2, h3, h4, h5, h6 { font-weight:normal; font-size:100%; }
 
 .icon-tupianguanli:before { content: "\e60b"; }
 
+.icon-crm11:before { content: "\e642"; }
+
 .icon-pinglunguanli:before { content: "\e63b"; }
 
 .icon-zixunzhuanhuan:before { content: "\e62a"; }
@@ -61,6 +63,8 @@ h1, h2, h3, h4, h5, h6 { font-weight:normal; font-size:100%; }
 
 .icon-xitongguanli:before { content: "\e61d"; }
 
+.icon-shanchu:before { content: "\e615"; }
+
 .icon-collapse-right:before { content: "\e600"; }
 
 
@@ -75,4 +79,11 @@ h1, h2, h3, h4, h5, h6 { font-weight:normal; font-size:100%; }
 /*样式调整*/
 .el-table__body-wrapper{
 	overflow: hidden !important;
+}
+table,table td,table th{
+	text-align: center !important;
+}
+.el-dialog .el-dialog__footer{
+	text-align: center !important;
+	border-top: 1px solid #ccc;
 }

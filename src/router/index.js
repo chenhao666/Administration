@@ -10,6 +10,8 @@ import Login from '@/components/login/login'
 import RoleManage from '@/components/power/roleManage'
 //权限管理
 import PowerManage from '@/components/power/powerManage'
+//管理员列表
+import UserManage from '@/components/power/userManage'
 
 Vue.use(Router)
 
@@ -55,6 +57,15 @@ export default new Router({
       		beforeEnter:(to,from,next)=>{
 		      	//导航选中
 		      	sessionStorage.setItem('nav','6-2')
+		      	next();
+	      	}
+      	},{
+      		path:'userManage',
+      		name:'管理员列表',
+      		component:UserManage,
+      		beforeEnter:(to,from,next)=>{
+		      	//导航选中
+		      	sessionStorage.setItem('nav','6-3')
 		      	next();
 	      	}
       	}

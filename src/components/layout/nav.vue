@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<el-menu  :default-active="activaNav" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse" :router="true" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
-			<el-menu-item @click="collapse()">
+			<el-menu-item  @click="collapse()" index="0" :route="{path:'#'}">
 				<i :class="isCollapse ? rightArrow : leftArrow"></i>
 				<span slot="title">展开/收起</span>
 			</el-menu-item>
@@ -67,7 +67,7 @@
 				<el-menu-item-group>
 					<el-menu-item index="6-1" :route="{path:'/roleManage'}">角色管理</el-menu-item>
 					<el-menu-item index="6-2" :route="{path:'/powerManage'}">权限管理</el-menu-item>
-					<el-menu-item index="6-3">管理员列表</el-menu-item>
+					<el-menu-item index="6-3" :route="{path:'/userManage'}">管理员列表</el-menu-item>
 				</el-menu-item-group>
 			</el-submenu>
 			<el-submenu index="7">
