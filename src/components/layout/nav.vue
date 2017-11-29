@@ -1,6 +1,16 @@
 <template>
 	<div>
-		<el-menu  :default-active="activaNav" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse" :router="true" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+		<el-menu  
+			:default-active="activaNav" 
+			unique-opened="true" 
+			class="el-menu-vertical-demo" 
+			@open="handleOpen" 
+			@close="handleClose" 
+			:collapse="isCollapse" 
+			:router="true" 
+			background-color="#545c64" 
+			text-color="#fff" 
+			active-text-color="#ffd04b">
 			<el-menu-item  @click="collapse()" index="0" :route="{path:'#'}">
 				<i :class="isCollapse ? rightArrow : leftArrow"></i>
 				<span slot="title">展开/收起</span>
