@@ -7,6 +7,31 @@
 		</el-breadcrumb>
 		
 		<div class="role_list">
+			<!--筛选条件-->
+			<div class="filter">
+				<div class="inlineBlock">
+					<div class="block left">
+						<span class="demonstration">日期范围:</span>
+						<el-date-picker 
+							v-model="fiterTime" 
+							type="daterange" 
+							align="right" 
+							unlink-panels 
+							range-separator="至" 
+							start-placeholder="开始日期" 
+							end-placeholder="结束日期" 
+							:picker-options="pickerOptions">
+						</el-date-picker>
+					</div>
+					<div class="left" style="width: 300px;margin-left: 10px;">
+						<el-input v-model="search" placeholder="请输入管理员名称"></el-input>
+					</div>
+					<div class="left" style="margin-left: 10px;">
+						<el-button type="success"><span class="iconfont icon-search"></span>搜索</el-button>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
 			<!--批量操作-->
 			<div class="editBtn">
 				<el-button @click="toggleSelection">全选</el-button>
@@ -227,7 +252,7 @@ export default {
 	        //表单验证
 	        rules:{
 	        	name:[
-	        		 { required: true, message: '请输入管理员名称', trigger: 'blur' }
+	        		{ required: true, message: '请输入管理员名称', trigger: 'blur' }
 	        	],
 	        	pass:[
 	        		{  required: true, validator: checkPsw, trigger: 'blur' }
@@ -241,7 +266,37 @@ export default {
 	        	email:[
 	        		{  required: true, validator: checkEmail, trigger: 'blur' }
 	        	]
-	        }
+	        },
+	        //筛选条件
+	        pickerOptions: {
+	          shortcuts: [{
+	            text: '最近一周',
+	            onClick(picker) {
+	              const end = new Date();
+	              const start = new Date();
+	              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+	              picker.$emit('pick', [start, end]);
+	            }
+	          }, {
+	            text: '最近一个月',
+	            onClick(picker) {
+	              const end = new Date();
+	              const start = new Date();
+	              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+	              picker.$emit('pick', [start, end]);
+	            }
+	          }, {
+	            text: '最近三个月',
+	            onClick(picker) {
+	              const end = new Date();
+	              const start = new Date();
+	              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+	              picker.$emit('pick', [start, end]);
+	            }
+	          }]
+	        },
+	        fiterTime: '',
+	        search:''
 		}
 	},
 	methods: {
@@ -388,5 +443,18 @@ export default {
 		font-size: 14px;
 		float: left;
 		margin: 0 auto;
+	}
+	.filter .left{
+		float: left;
+	}
+	.el-date-editor--daterange.el-input__inner{
+		width: 280px;
+	}
+	.filter{
+		width: 100%;
+		text-align: center;
+	}
+	.inlineBlock{
+		margin:20px 0px;
 	}
 </style>
