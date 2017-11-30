@@ -22,7 +22,7 @@ export default {
 }
 .el-breadcrumb{
 	height: 40px;
-	line-height: 40px;
+	line-height: 40px !important;
 	border-bottom: 1px solid #ccc;
 	padding-left: 15px;
 	box-sizing: border-box;

@@ -2,7 +2,7 @@
 	<div>
 		<el-menu  
 			:default-active="activaNav" 
-			unique-opened="true" 
+			:unique-opened="true" 
 			class="el-menu-vertical-demo" 
 			@open="handleOpen" 
 			@close="handleClose" 

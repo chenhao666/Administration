@@ -62,7 +62,7 @@
 			  :before-close="handleClose">
 			  <!--表单开始-->
 			  <el-form ref="ruleForm" :model="form" :rules="rules" label-width="80px">
-			  	<el-form-item label="父级节点" prop="parentName">
+			  	<el-form-item label="父级节点" prop="parentNode">
 			  		<el-cascader :options="form.options" change-on-select @change="getParentNode"></el-cascader>
 			  	</el-form-item>
 			  	<el-form-item label="节点名称" prop="name">
@@ -82,6 +82,15 @@
 export default {
 	name:'role',
 	data(){
+		//表单验证
+		//验证是否选择父节点
+		let checkParent = (rule ,value,callback) => {
+			if(this.form.parentNode.length>0){
+				callback();
+			}else{
+				callback(new Error('请选择父节点'));
+			}
+		}
 		return{
 			tableData: [{
 	          id: 1,
@@ -123,6 +132,8 @@ export default {
 	        dialogTitle:'提示',
 	        form:{
 	        	name:'',
+	        	//父节点
+	        	parentNode:[],
 	        	options: [{
 		          value: 0,
 		          label: '添加一级节点',
@@ -150,8 +161,8 @@ export default {
 		    	name: [
 			        { required: true, message: '请输入节点名称', trigger: 'blur' }
 			    ],
-			    parentName: [
-			        { required: true, message: '请选择父级节点', trigger: 'blur' }
+			    parentNode: [
+			        { validator: checkParent, trigger: 'blur' }
 			    ]
 		    }
 		}
@@ -224,6 +235,7 @@ export default {
       },
       //选择父节点
       getParentNode(value){
+      	this.form.parentNode=value;
       	//console.log(value)
       },
       //表单提交
