@@ -5,7 +5,7 @@ Vue.use(Vuex)
 //全局数据
 const state={
 	username:sessionStorage.getItem('username'),
-	loginFlag:''
+	loginFlag:sessionStorage.getItem('loginFlag')
 }
 //触发状态
 const mutations={

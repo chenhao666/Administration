@@ -6,12 +6,15 @@ import IndexP from '@/components/index'
 import Index from '@/components/index/index'
 //登录
 import Login from '@/components/login/login'
+//咨询管理
+import Consult from '@/components/consult/consultManage'
 //角色管理
 import RoleManage from '@/components/power/roleManage'
 //权限管理
 import PowerManage from '@/components/power/powerManage'
 //管理员列表
 import UserManage from '@/components/power/userManage'
+
 
 Vue.use(Router)
 
@@ -40,6 +43,16 @@ export default new Router({
 		      	sessionStorage.setItem('nav','0')
 		      	next();
 	      	},
+      	},
+      	{
+      		path:'consult',
+      		name:'咨询管理',
+      		component:Consult,
+      		beforeEnter:(to,from,next)=>{
+		      	//导航选中
+		      	sessionStorage.setItem('nav','6-1')
+		      	next();
+	      	}
       	},
       	{
       		path:'roleManage',

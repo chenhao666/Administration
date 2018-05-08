@@ -21,7 +21,7 @@
 					<span slot="title">资讯管理</span>
 				</template>
 				<el-menu-item-group>
-					<el-menu-item index="1-1"><div class="navItem iconfont icon-jiantouarrow496"></div>资讯管理</el-menu-item>
+					<el-menu-item index="1-1" :route="{path:'/consult'}"><div class="navItem iconfont icon-jiantouarrow496"></div>资讯管理</el-menu-item>
 				</el-menu-item-group>
 			</el-submenu>
 			<el-submenu index="2">

@@ -6,53 +6,62 @@
 		  <el-breadcrumb-item>角色管理</el-breadcrumb-item>
 		</el-breadcrumb>
 		
-		<div class="role_list">
-			<!--批量操作-->
-			<div class="editBtn">
-				<el-button @click="toggleSelection">全选</el-button>
-				<el-button @click="addRole" type="primary"><span class="iconfont icon-crm11"></span>添加角色</el-button>
-				<el-button type="danger" @click="delQuery"><span class="iconfont icon-shanchu"></span>批量删除</el-button>
+		<el-card class="box-card">
+			<div slot="header" class="clearfix">
+			    <span>角色管理</span>
 			</div>
 			
-			<el-table ref="multipleTable" border :data="tableData" :stripe="true" tooltip-effect="dark"   style="width: 96%;margin-left: 2%;" @selection-change="handleSelectionChange">
-				<el-table-column type="selection" width="55">
-				</el-table-column>
-				<el-table-column label="角色ID" width="120" sortable prop="id">
-					<template slot-scope="scope">{{ scope.row.id }}</template>
-				</el-table-column>
-				<el-table-column prop="roleName" label="角色名" width="150">
-				</el-table-column>
-				<el-table-column prop="userList" label="用户列表" width="160" show-overflow-tooltip>
-				</el-table-column>
-				<el-table-column prop="discription" label="描述"  show-overflow-tooltip>
-				</el-table-column>
-				<el-table-column label="操作" width="200">
-			      <template slot-scope="scope">
-			        <el-button
-			          size="mini"
-			          @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-			        <el-button
-			          size="mini"
-			          type="danger"
-			          @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-			      </template>
-			    </el-table-column>
-			</el-table>
-			<!--分页-->
-			<div class="rolePage">
-			    <el-pagination
-			      @size-change="handleSizeChange"
-			      @current-change="handleCurrentChange"
-			      :current-page="currentPage4"
-			      :page-sizes="[100, 200, 300, 400]"
-			      :page-size="100"
-			      layout="total, sizes, prev, pager, next, jumper"
-			      :total="10000">
-			    </el-pagination>
+			<div class="role_list">
+				<!--批量操作-->
+				<div class="editBtn">
+					<el-button @click="toggleSelection">全选</el-button>
+					<el-button @click="addRole" type="primary"><span class="iconfont icon-crm11"></span>添加角色</el-button>
+					<el-button type="danger" @click="delQuery"><span class="iconfont icon-shanchu"></span>批量删除</el-button>
+				</div>
+				<div class="listTotal">
+					共有<span style="color:#666666;font-weight: bold;font-size: 16px;">{{ listTotal }}</span>条数据	
+				</div>
+				<div class="clear"></div>
+				
+				<el-table ref="multipleTable" border :data="tableData" :stripe="true" tooltip-effect="dark"   style="width: 100%;" @selection-change="handleSelectionChange">
+					<el-table-column type="selection" width="55">
+					</el-table-column>
+					<el-table-column label="角色ID" width="120" sortable prop="id">
+						<template slot-scope="scope">{{ scope.row.id }}</template>
+					</el-table-column>
+					<el-table-column prop="roleName" label="角色名" width="120">
+					</el-table-column>
+					<el-table-column prop="userList" label="用户列表" width="120" show-overflow-tooltip>
+					</el-table-column>
+					<el-table-column prop="discription" label="描述"  show-overflow-tooltip>
+					</el-table-column>
+					<el-table-column label="操作" width="200">
+				      <template slot-scope="scope">
+				        <el-button
+				          size="mini"
+				          @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+				        <el-button
+				          size="mini"
+				          type="danger"
+				          @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+				      </template>
+				    </el-table-column>
+				</el-table>
+				<!--分页-->
+				<div class="curPageCss">
+				    <el-pagination
+				      @size-change="handleSizeChange"
+				      @current-change="handleCurrentChange"
+				      :current-page="currentPage4"
+				      :page-sizes="[100, 200, 300, 400]"
+				      :page-size="100"
+				      layout="sizes, prev, pager, next, jumper"
+				      :total="listTotal">
+				    </el-pagination>
+				</div>
+				<div class="clear"></div>
 			</div>
-			<div class="clear"></div>
-		</div>
-		
+		</el-card>
 		<!--dialog弹窗-->
 		<div class="edit_dialog">
 			<el-dialog
@@ -229,6 +238,7 @@ export default {
 	        currentPage4: 1,//分页当前页数
 	        dialogVisible: false,//弹窗状态
 	        dialogTitle:'提示',
+	        listTotal:10000,//数据总条数
 	        form:{
 	        	name:'',
 	        	desc:'',
@@ -398,24 +408,8 @@ function removeArr(arr,arr2){
 </script>
 
 <style scoped>
-	.role_list{
-		width: 96%;
-		margin: 0 auto;
-		margin-top: 20px;
-	}
 	.el-table__row{
 		cursor: pointer;
-	}
-	.rolePage{
-		margin-top: 10px;
-		margin-bottom: 10px;
-		float: right;
-	}
-	.editBtn{
-		margin-top: 20px;
-		margin-bottom: 20px;
-		float: left;
-		margin-left: 2%;
 	}
 	.edit_dialog .el-checkbox+.el-checkbox{
 		margin-left: 0px;
@@ -436,10 +430,5 @@ function removeArr(arr,arr2){
 	.choosePower{
 		max-height: 200px;
 		overflow: auto;
-	}
-	.iconfont{
-		font-size: 14px;
-		float: left;
-		margin: 0 auto;
 	}
 </style>

@@ -134,3 +134,41 @@ table,table td,table th{
 	left: 20px;
 	top: -4px;
 }
+.el-select,.el-input{
+	width: 120px;
+}
+.el-range-editor{
+	width: 260px !important;
+}
+.el-breadcrumb{
+	padding-left: 40px !important;
+}
+
+.box-card{
+	margin: 20px 40px;
+	padding: ;
+}
+.editBtn{
+	margin-top: 20px;
+	margin-bottom: 20px;
+	float: left;
+}
+.listTotal{
+	float:right;
+	height: 40px;
+	line-height: 40px;
+	margin: 20px 0px;
+	color: #999999;
+	font-size: 14px;
+}
+.iconfont{
+	font-size: 14px;
+	float: left;
+	margin: 0 auto;
+}
+/*分页*/
+.curPageCss{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	float: right;
+}

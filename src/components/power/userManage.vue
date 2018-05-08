@@ -6,81 +6,90 @@
 		  <el-breadcrumb-item>管理员列表</el-breadcrumb-item>
 		</el-breadcrumb>
 		
-		<div class="role_list">
-			<!--筛选条件-->
-			<div class="filter">
-				<div class="inlineBlock">
-					<div class="block left">
-						<span class="demonstration">日期范围:</span>
-						<el-date-picker 
-							v-model="fiterTime" 
-							type="daterange" 
-							align="right" 
-							unlink-panels 
-							range-separator="至" 
-							start-placeholder="开始日期" 
-							end-placeholder="结束日期" 
-							:picker-options="pickerOptions">
-						</el-date-picker>
+		<el-card class="box-card">
+			<div slot="header" class="clearfix">
+			    <span>管理员列表</span>
+			</div>
+			<div class="role_list">
+				<!--筛选条件-->
+				<div class="filter">
+					<div class="inlineBlock">
+						<div class="block left">
+							<span class="demonstration">日期范围:</span>
+							<el-date-picker 
+								v-model="fiterTime" 
+								type="daterange" 
+								align="right" 
+								unlink-panels 
+								range-separator="至" 
+								start-placeholder="开始日期" 
+								end-placeholder="结束日期" 
+								:picker-options="pickerOptions">
+							</el-date-picker>
+						</div>
+						<div class="left">
+							<el-input v-model="search" placeholder="管理员名称"></el-input>
+						</div>
+						<div class="left">
+							<el-button type="success"><span class="iconfont icon-search"></span>搜索</el-button>
+						</div>
+						<div class="clear"></div>
 					</div>
-					<div class="left" style="width: 300px;margin-left: 10px;">
-						<el-input v-model="search" placeholder="请输入管理员名称"></el-input>
-					</div>
-					<div class="left" style="margin-left: 10px;">
-						<el-button type="success"><span class="iconfont icon-search"></span>搜索</el-button>
-					</div>
-					<div class="clear"></div>
 				</div>
+				<!--批量操作-->
+				<div class="editBtn">
+					<el-button @click="toggleSelection">全选</el-button>
+					<el-button @click="addRole" type="primary"><span class="iconfont icon-crm11"></span>添加管理员</el-button>
+					<el-button type="danger" @click="delQuery"><span class="iconfont icon-shanchu"></span>批量删除</el-button>
+				</div>
+				<div class="listTotal">
+					共有<span style="color:#666666;font-weight: bold;font-size: 16px;">{{ listTotal }}</span>条数据	
+				</div>
+				<div class="clear"></div>
+				
+				<el-table ref="multipleTable" border :data="tableData" :stripe="true" tooltip-effect="dark"   style="width: 100%;" @selection-change="handleSelectionChange">
+					<el-table-column type="selection" width="55">
+					</el-table-column>
+					<el-table-column label="ID" width="80" sortable prop="id">
+						<template slot-scope="scope">{{ scope.row.id }}</template>
+					</el-table-column>
+					<el-table-column prop="userName" label="登录名" width="80" show-overflow-tooltip>
+					</el-table-column>
+					<el-table-column prop="mobile" label="手机" show-overflow-tooltip>
+					</el-table-column>
+					<el-table-column prop="userEmail" label="邮箱" show-overflow-tooltip>
+					</el-table-column>
+					<el-table-column prop="roles" label="角色" show-overflow-tooltip>
+					</el-table-column>
+					<el-table-column prop="addTime" label="加入时间" show-overflow-tooltip>
+					</el-table-column>
+					<el-table-column label="操作" width="160">
+				      <template slot-scope="scope">
+				        <el-button
+				          size="mini"
+				          @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+				        <el-button
+				          size="mini"
+				          type="danger"
+				          @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+				      </template>
+				    </el-table-column>
+				</el-table>
+				<!--分页-->
+				<div class="curPageCss">
+				    <el-pagination
+				      @size-change="handleSizeChange"
+				      @current-change="handleCurrentChange"
+				      :current-page="currentPage4"
+				      :page-sizes="[100, 200, 300, 400]"
+				      :page-size="100"
+				      layout="sizes, prev, pager, next, jumper"
+				      :total="listTotal">
+				    </el-pagination>
+				</div>
+				<div class="clear"></div>
 			</div>
-			<!--批量操作-->
-			<div class="editBtn">
-				<el-button @click="toggleSelection">全选</el-button>
-				<el-button @click="addRole" type="primary"><span class="iconfont icon-crm11"></span>添加管理员</el-button>
-				<el-button type="danger" @click="delQuery"><span class="iconfont icon-shanchu"></span>批量删除</el-button>
-			</div>
-			
-			<el-table ref="multipleTable" border :data="tableData" :stripe="true" tooltip-effect="dark"   style="width: 96%;margin-left: 2%;" @selection-change="handleSelectionChange">
-				<el-table-column type="selection" width="55">
-				</el-table-column>
-				<el-table-column label="ID" width="80" sortable prop="id">
-					<template slot-scope="scope">{{ scope.row.id }}</template>
-				</el-table-column>
-				<el-table-column prop="userName" label="登录名" width="100">
-				</el-table-column>
-				<el-table-column prop="mobile" label="手机" show-overflow-tooltip>
-				</el-table-column>
-				<el-table-column prop="userEmail" label="邮箱" show-overflow-tooltip>
-				</el-table-column>
-				<el-table-column prop="roles" label="角色" show-overflow-tooltip>
-				</el-table-column>
-				<el-table-column prop="addTime" label="加入时间" show-overflow-tooltip>
-				</el-table-column>
-				<el-table-column label="操作" width="200">
-			      <template slot-scope="scope">
-			        <el-button
-			          size="mini"
-			          @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-			        <el-button
-			          size="mini"
-			          type="danger"
-			          @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-			      </template>
-			    </el-table-column>
-			</el-table>
-			<!--分页-->
-			<div class="rolePage">
-			    <el-pagination
-			      @size-change="handleSizeChange"
-			      @current-change="handleCurrentChange"
-			      :current-page="currentPage4"
-			      :page-sizes="[100, 200, 300, 400]"
-			      :page-size="100"
-			      layout="total, sizes, prev, pager, next, jumper"
-			      :total="10000">
-			    </el-pagination>
-			</div>
-			<div class="clear"></div>
-		</div>
+		</el-card>
 		
 		<!--dialog弹窗-->
 		<div class="edit_dialog">
@@ -235,6 +244,7 @@ export default {
 	        currentPage4: 1,//分页当前页数
 	        dialogVisible: false,//弹窗状态
 	        dialogTitle:'提示',
+	        listTotal:10000,//数据总条数
 	        ruleForm:{
 		        name: '',
 		        pass:'',
@@ -401,28 +411,13 @@ export default {
 </script>
 
 <style scoped>
-	.role_list{
-		width: 96%;
-		margin: 0 auto;
-		margin-top: 20px;
-	}
 	.el-table__row{
 		cursor: pointer;
 	}
 	.el-table__header th,.el-table__header td{
 		text-align: center !important;
 	}
-	.rolePage{
-		margin-top: 10px;
-		margin-bottom: 10px;
-		float: right;
-	}
-	.editBtn{
-		margin-top: 20px;
-		margin-bottom: 20px;
-		float: left;
-		margin-left: 2%;
-	}
+	
 	.edit_dialog .el-checkbox+.el-checkbox{
 		margin-left: 0px;
 	}
@@ -439,13 +434,10 @@ export default {
 	.el-table--border th, .el-table__fixed-right-patch{
 		box-sizing: border-box !important;
 	}
-	.iconfont{
-		font-size: 14px;
-		float: left;
-		margin: 0 auto;
-	}
+
 	.filter .left{
 		float: left;
+		margin: 0px 10px;
 	}
 	.el-date-editor--daterange.el-input__inner{
 		width: 280px;
@@ -453,8 +445,5 @@ export default {
 	.filter{
 		width: 100%;
 		text-align: center;
-	}
-	.inlineBlock{
-		margin:20px 0px;
 	}
 </style>
