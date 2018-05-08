@@ -22,7 +22,7 @@
 export default {
     data() {
       return {
-		adminUser:sessionStorage.getItem('username')
+		adminUser:this.$store.state.username
       };
     },
     methods: {
@@ -49,6 +49,12 @@ export default {
 		height: 60px;
 		line-height: 60px;
 	}
+	.header img{
+		position: absolute;
+		top: 12px;
+		width: 100px;
+		height: auto;
+	}
 	.header .el-submenu .el-menu-item{
 		min-width: auto;
 	}
@@ -72,5 +78,14 @@ export default {
 	    box-sizing: border-box;
 	    border-bottom: 2px solid transparent;
 	    color: #ffffff;
+	}
+	.el-submenu{
+		float: left;
+		position: relative;
+		height: 60px;
+	}
+	
+	.el-menu--horizontal{
+		border-bottom: 1px solid rgba(230,230,230,0.5);
 	}
 </style>

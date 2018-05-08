@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 //全局数据
 const state={
-	username:'',
+	username:sessionStorage.getItem('username'),
 	loginFlag:''
 }
 //触发状态
