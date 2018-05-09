@@ -189,8 +189,6 @@
 		        multipleSelection: [],
 		        multipleFlag:false,//全选状态
 		        currentPage4: 1,//分页当前页数
-		        dialogVisible: false,//弹窗状态
-		        dialogTitle:'提示',
 				classValue: '',//分类的value值
 				dateRange:'',//日期范围
 				inputVal:'',//资讯名称
@@ -219,14 +217,11 @@
 		    },
 		     //添加
 		    addConsult(){
-		    	this.dialogTitle="添加权限节点";
-		    	this.dialogVisible = true;
+		    	this.$router.push({path:'/consult/addConsult'})
 		    },
 		    //编辑
 		    handleEdit(index, row) {
 		      console.log(index, row);
-		      this.dialogTitle="编辑权限节点";
-		      this.dialogVisible = true;//打开弹窗
 		    },
 		    //删除
 		    handleDelete(index, row) {
@@ -249,6 +244,12 @@
 		    },
 		    //批量删除
 		    delQuery(){
+		    	if(this.multipleSelection.length==0){
+		    		this.$message({
+		    			type: 'warning',
+		          		message: '请选择要删除的选项!'	
+		    		})
+		    	}
 		    	console.log(this.multipleSelection);
 		    },
 		    //分页方法
@@ -265,18 +266,6 @@
 		          done();
 		        })
 		        .catch(_ => {});
-		    },
-		    //表单提交
-		    submitForm(formName) {
-		      this.$refs[formName].validate((valid) => {
-		        if (valid) {
-		        	this.dialogVisible = false;
-		          alert('submit!');
-		        } else {
-		          console.log('error submit!!');
-		          return false;
-		        }
-		      });
 		    }
 		}
 	}
@@ -290,5 +279,11 @@
 	.list_float{
 		float: left;
 		margin: 0px 10px;
+	}
+	.el-select,.el-input{
+		width: 120px;
+	}
+	.el-range-editor{
+		width: 260px !important;
 	}
 </style>

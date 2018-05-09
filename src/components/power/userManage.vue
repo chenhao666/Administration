@@ -362,6 +362,12 @@ export default {
       },
       //批量删除
       delQuery(){
+      	if(this.multipleSelection.length==0){
+			this.$message({
+				type: 'warning',
+		  		message: '请选择要删除的选项!'	
+			})
+		}
       	console.log(this.multipleSelection);
       },
       //分页方法
@@ -445,5 +451,11 @@ export default {
 	.filter{
 		width: 100%;
 		text-align: center;
+	}
+	.el-select,.el-input{
+		width: 120px;
+	}
+	.el-range-editor{
+		width: 260px !important;
 	}
 </style>

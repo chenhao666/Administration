@@ -134,12 +134,7 @@ table,table td,table th{
 	left: 20px;
 	top: -4px;
 }
-.el-select,.el-input{
-	width: 120px;
-}
-.el-range-editor{
-	width: 260px !important;
-}
+
 .el-breadcrumb{
 	padding-left: 40px !important;
 }

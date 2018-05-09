@@ -227,6 +227,12 @@ export default {
       },
       //批量删除
       delQuery(){
+      	if(this.multipleSelection.length==0){
+			this.$message({
+				type: 'warning',
+		  		message: '请选择要删除的选项!'	
+			})
+		}
       	console.log(this.multipleSelection);
       },
       //分页方法

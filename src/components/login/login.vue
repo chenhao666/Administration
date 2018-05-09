@@ -55,7 +55,7 @@ export default{
 		          message: '登陆成功！',
 		          type: 'success'
 		    });
-			this.$router.push({path:'/'});
+		    this.$store.commit("loginFlag");
 			//发送ajax请求
 			/*this.$ajax.post('/user', {
 			    username:this.username,

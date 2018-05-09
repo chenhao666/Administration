@@ -8,6 +8,8 @@ import Index from '@/components/index/index'
 import Login from '@/components/login/login'
 //咨询管理
 import Consult from '@/components/consult/consultManage'
+//添加咨询
+import AddConsult from '@/components/consult/addConsult'
 //角色管理
 import RoleManage from '@/components/power/roleManage'
 //权限管理
@@ -50,7 +52,17 @@ export default new Router({
       		component:Consult,
       		beforeEnter:(to,from,next)=>{
 		      	//导航选中
-		      	sessionStorage.setItem('nav','6-1')
+		      	sessionStorage.setItem('nav','1-1')
+		      	next();
+	      	}
+      	},
+      	{
+      		path:'consult/addConsult',
+      		name:'添加咨询',
+      		component:AddConsult,
+      		beforeEnter:(to,from,next)=>{
+		      	//导航选中
+		      	sessionStorage.setItem('nav','1-1')
 		      	next();
 	      	}
       	},
