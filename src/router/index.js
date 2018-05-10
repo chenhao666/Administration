@@ -10,6 +10,8 @@ import Login from '@/components/login/login'
 import Consult from '@/components/consult/consultManage'
 //添加咨询
 import AddConsult from '@/components/consult/addConsult'
+//图片管理
+import Picture from '@/components/picture/pictureManage'
 //角色管理
 import RoleManage from '@/components/power/roleManage'
 //权限管理
@@ -63,6 +65,16 @@ export default new Router({
       		beforeEnter:(to,from,next)=>{
 		      	//导航选中
 		      	sessionStorage.setItem('nav','1-1')
+		      	next();
+	      	}
+      	},
+      	{
+      		path:'pictureManage',
+      		name:'图片管理',
+      		component:Picture,
+      		beforeEnter:(to,from,next)=>{
+		      	//导航选中
+		      	sessionStorage.setItem('nav','2-1')
 		      	next();
 	      	}
       	},

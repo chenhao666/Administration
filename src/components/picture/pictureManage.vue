@@ -1,29 +1,16 @@
 <template>
-	<div class="consult">
+	<div class="pictureManage">
 		<el-breadcrumb separator-class="el-icon-arrow-right">
-		  <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-		  <el-breadcrumb-item>咨询管理</el-breadcrumb-item>
+			<el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+			<el-breadcrumb-item>图片管理</el-breadcrumb-item>
 		</el-breadcrumb>
 		
 		<el-card class="box-card">
 			<div slot="header" class="clearfix">
-			    <span>咨询管理</span>
+			    <span>图片管理</span>
 			</div>			
 			<div class="consult_list">
-				<div style="display: inline-block;">
-					<div class="list_float">
-						<template>
-						  	<el-select v-model="classValue" placeholder="全部分类">
-							    <el-option
-							      v-for="item in options"
-							      :key="item.value"
-							      :label="item.label"
-							      :value="item.value">
-							    </el-option>
-						  	</el-select>
-						</template>
-					</div>
-						
+				<div style="display: inline-block;">					
 					<div class="list_float">
 						<div class="block">
 						    <span class="demonstration">日期范围：</span>
@@ -38,7 +25,7 @@
 					</div>
 					
 					<div class="list_float">
-						<el-input v-model="inputVal" placeholder="资讯名称"></el-input>
+						<el-input v-model="inputVal" placeholder="图片名称"></el-input>
 					</div>
 					
 					<div class="list_float">
@@ -51,7 +38,7 @@
 			<!--批量操作-->
 			<div class="editBtn">
 				<el-button @click="toggleSelection">全选</el-button>
-				<el-button @click="addConsult" type="primary"><span class="iconfont icon-crm11"></span>添加咨询</el-button>
+				<el-button @click="addPicture" type="primary"><span class="iconfont icon-crm11"></span>添加图片</el-button>
 				<el-button type="danger" @click="delQuery"><span class="iconfont icon-shanchu"></span>批量删除</el-button>
 			</div>
 			<div class="listTotal">
@@ -65,15 +52,18 @@
 				<el-table-column label="ID" width="80" sortable prop="id">
 					<template slot-scope="scope">{{ scope.row.id }}</template>
 				</el-table-column>
-				<el-table-column prop="title" label="标题"  show-overflow-tooltip>
+				<el-table-column prop="pictureClass" label="分类"  show-overflow-tooltip>
 				</el-table-column>
-				<el-table-column prop="consultClass" label="分类" show-overflow-tooltip>
+				<el-table-column prop="imageUrl" label="封面" width="100">
+					<template slot-scope="scope">
+				        <img :src="scope.row.imageUrl" alt="" />
+				    </template>
 				</el-table-column>
-				<el-table-column prop="source" label="来源" show-overflow-tooltip>
+				<el-table-column prop="source" label="图片名称" show-overflow-tooltip>
+				</el-table-column>
+				<el-table-column prop="tags" label="标签" show-overflow-tooltip>
 				</el-table-column>
 				<el-table-column prop="updateTime" label="更新时间" show-overflow-tooltip>
-				</el-table-column>
-				<el-table-column prop="num" label="浏览次数" show-overflow-tooltip>
 				</el-table-column>
 				<el-table-column prop="state" label="发布状态" show-overflow-tooltip>
 				</el-table-column>
@@ -105,26 +95,18 @@
 			</div>
 			<div class="clear"></div>
 		</el-card>
-		
 	</div>
 </template>
 
 <script>
 	export default{
-		name:'consult',
+		name:'pictureManage',
 		data(){
 			return{
-				options:[
-					{ label:'全部分类',value:'0' },
-					{ label:'分类一',value:'1' },
-					{ label:'分类二',value:'2' },
-					{ label:'分类三',value:'3' },
-					{ label:'分类四',value:'4' },
-				],//选择框数据
 				tableData: [{
 		          id: 1,
-		          title: '资讯标题',
-		          consultClass: '行业动态',
+		          pictureClass: '分类名称',
+		          imageUrl: '../../assets/logo.png',
 		          source: '新闻',
 		          updateTime: '2014-6-11 11:11:42',
 		          num: '21212',
@@ -216,8 +198,8 @@
 		      	this.multipleSelection = val;
 		    },
 		     //添加
-		    addConsult(){
-		    	this.$router.push({path:'/consult/addConsult'})
+		    addPicture(){
+		    	this.$router.push({path:'/consult/addPicture'})
 		    },
 		    //编辑
 		    handleEdit(index, row) {

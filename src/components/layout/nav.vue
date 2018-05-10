@@ -30,7 +30,7 @@
 					<span slot="title">图片管理</span>
 				</template>
 				<el-menu-item-group>
-					<el-menu-item index="2-1"><div class="navItem iconfont icon-jiantouarrow496"></div>图片管理</el-menu-item>
+					<el-menu-item index="2-1" :route="{path:'/pictureManage'}"><div class="navItem iconfont icon-jiantouarrow496"></div>图片管理</el-menu-item>
 				</el-menu-item-group>
 			</el-submenu>
 			<el-submenu index="3">
