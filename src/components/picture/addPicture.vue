@@ -1,18 +1,18 @@
 <template>
-	<div class="addConsult">
+	<div class="addPicture">
 		<el-breadcrumb separator-class="el-icon-arrow-right">
-		  <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-		  <el-breadcrumb-item>咨询管理</el-breadcrumb-item>
-		  <el-breadcrumb-item>添加咨询</el-breadcrumb-item>
+			<el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+			<el-breadcrumb-item>图片管理</el-breadcrumb-item>
+			<el-breadcrumb-item>添加图片</el-breadcrumb-item>
 		</el-breadcrumb>
 		
 		<el-card class="box-card">
 			<div slot="header" class="clearfix">
-			    <span>添加咨询</span>
+			    <span>添加图片</span>
 			</div>
 			
 			<el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-				<el-form-item label="文章标题" prop="title">
+				<el-form-item label="图片标题" prop="title">
 					<el-input v-model="ruleForm.title"></el-input>
 				</el-form-item>
 			  	
@@ -20,32 +20,16 @@
 				  	<el-input v-model="ruleForm.briefTitle"></el-input>
 				</el-form-item>
 				
-				<el-form-item label="分类栏目" prop="consultClass">
+				<el-form-item label="分类栏目" prop="pictureClass">
 					<el-select v-model="ruleForm.consultClass" placeholder="分类栏目">
 						<el-option label="全部类型" value="0"></el-option>
-						<el-option label="帮助说明" value="1"></el-option>
-						<el-option label="新闻资讯" value="2"></el-option>
+						<el-option label="新闻资讯" value="1"></el-option>
+						<el-option label="行业动态" value="2"></el-option>
 					</el-select>
 				</el-form-item>
 				
 				<el-form-item label="排序值">
 				  	<el-input v-model="ruleForm.num"></el-input>
-				</el-form-item>
-				
-				<el-form-item label="关键词">
-				  	<el-input v-model="ruleForm.keyword"></el-input>
-				</el-form-item>
-				
-				<el-form-item label="文章摘要" prop="desc">
-					<el-input type="textarea" rows='4' resize="none" v-model="ruleForm.desc" placeholder="说点什么...最少输入10个字符"></el-input>
-				</el-form-item>
-				
-				<el-form-item label="文章作者">
-				  	<el-input v-model="ruleForm.author"></el-input>
-				</el-form-item>
-				
-				<el-form-item label="文章来源">
-				  	<el-input v-model="ruleForm.source"></el-input>
 				</el-form-item>
 				
 				<el-form-item label="允许评论">
@@ -55,7 +39,7 @@
 					</el-radio-group>
 				</el-form-item>
 				
-				<el-form-item label="评论日期">
+				<el-form-item label="发布日期" prop="date">
 					<div class="block">
 						<el-date-picker 
 							v-model="ruleForm.date" 
@@ -65,6 +49,22 @@
 							end-placeholder="结束日期">
 						</el-date-picker>
 					</div>
+				</el-form-item>
+				
+				<el-form-item label="图片作者">
+				  	<el-input v-model="ruleForm.author"></el-input>
+				</el-form-item>
+				
+				<el-form-item label="图片来源">
+				  	<el-input v-model="ruleForm.source"></el-input>
+				</el-form-item>
+				
+				<el-form-item label="关键词">
+				  	<el-input v-model="ruleForm.keyword"></el-input>
+				</el-form-item>
+				
+				<el-form-item label="图片摘要" prop="desc">
+					<el-input type="textarea" rows='4' resize="none" v-model="ruleForm.desc" placeholder="说点什么...最少输入10个字符"></el-input>
 				</el-form-item>
 				
 				<el-form-item label="缩略图">
@@ -85,8 +85,19 @@
 					  		<div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过3MB</div>
 					</el-upload>
 				</el-form-item>
-				<el-form-item label="文章内容：">
-					<textarea name="content" style="width:100%;height:400px;visibility:hidden;"></textarea>
+				
+				<el-form-item label="图片上传">
+					<el-upload
+					  :action="uploadPics"
+					  list-type="picture-card"
+					  :on-preview="handlePreviews"
+					  :file-list='fileLists'
+					  :on-remove="handleRemoves">
+					  	<i class="el-icon-plus"></i>
+					</el-upload>
+					<el-dialog :visible.sync="dialogVisible">
+					  <img width="100%" :src="dialogImageUrl" alt="">
+					</el-dialog>
 				</el-form-item>
 				
 				<div class="btnGroup">
@@ -101,48 +112,43 @@
 
 <script>
 	export default{
-		name:'',
+		name:'addPicture',
 		data(){
 			return{
 				uploadPic:'',//图片上传地址
 				uploadData:{},//文件上传携带的参数
 				fileList:[],//上传图片列表
+				uploadPics:'https://jsonplaceholder.typicode.com/posts/',//图片上传地址
+				dialogImageUrl: '',//图片放大
+        		dialogVisible: false,//图片放大弹窗
+        		fileLists:[],//上传文件列表
 				ruleForm:{
-					title:'',//文章标题
+					title:'',//图片标题
 					briefTitle:'',//简略标题
-					consultClass:'0',//分类栏目
-					num:0,//排序值
-					keyword:'',//关键词
-					desc:'',//文章摘要
-					author:'',//文章作者
-					source:'',//文章来源
+					pictureClass:'',//分类栏目
+					num:'',//排序值
 					comment:'',//是否允许评论
-					date:'',//评论日期
+					date:'',//发布日期
+					author:'',//图片作者
+					source:'',//图片来源
+					keyword:'',//关键词
+					desc:'',//图片摘要
 				},
 				rules:{
-					title: [
-			            { required: true, message: '请输入文章标题', trigger: 'blur' },
-			        ],
-			        desc:[
-			        	{ required: true, message: '请输入摘要内容', trigger: 'blur' },
-			        	{ min: 10, max: 200, message: '长度在 10到 200 个字符', trigger: 'blur' }
-			        ],
-				},
+					title:[
+						{ required: true, message: '请输入图片标题', trigger: 'blur' }
+					],
+					pictureClass:[
+						{ required: true, message: '请选择分类栏目', trigger: 'blur' }
+					],
+					date:[
+						{ required: true, message: '请选择发布日期', trigger: 'blur' }
+					]
+				}
 			}
 		},
 		mounted(){
-			//初始化文本编辑器
-			//var editor;
-		    this.editor = KindEditor.create('textarea[name="content"]', {
-		       	cssPath : '/static/edit/plugins/code/prettify.css',
-				//uploadJson : '/static/edit/jsp/upload_json.jsp',
-				uploadJson:this.$store.state.localIP+'uploadJson',
-				//fileManagerJson : '/static/edit/jsp/file_manager_json.jsp',
-				fileManagerJson: this.$store.state.localIP+'fileManagerJson',
-		        allowFileManager : true
-		    });
-		    //获取文本内容
-		    //this.editor.html()
+			
 		},
 		methods:{
 			//图片上传失败
@@ -182,22 +188,31 @@
 	     	//上传图片删除
 			handleRemove(file, fileList) {
 	        	console.log(file, fileList);
-	      },
-	      //提交表单
-	      submitForm(formName) {
-	        this.$refs[formName].validate((valid) => {
-	        	if (valid) {
-	            	alert('submit!');
-	        	} else {
-	           		console.log('error submit!!');
-	            	return false;
-	        	}
-	        });
-	      },
-	      //取消
-	      goBack(){
-	      	this.$router.push({path:'/consult'})
-	      }
+	      	},
+		    //提交表单
+		    submitForm(formName) {
+		        this.$refs[formName].validate((valid) => {
+		        	if (valid) {
+		            	alert('submit!');
+		        	} else {
+		           		console.log('error submit!!');
+		            	return false;
+		        	}
+		        });
+		    },
+		    //文件列表移除文件时的钩子
+	      	handleRemoves(file, fileList) {
+	        	console.log(file, fileList);
+	      	},
+	      	//文件上传
+	      	handlePreviews(file) {
+	        	this.dialogImageUrl = file.url;
+	        	this.dialogVisible = true;
+	      	},
+	     	 //取消
+	      	goBack(){
+	      		this.$router.push({path:'/pictureManage'})
+	      	}
 		}
 	}
 </script>

@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import router from './router'
 
 Vue.use(Vuex)
-function statValue(){
+function statValue(state){
 	state.username=sessionStorage.getItem('username');
 	state.loginFlag=sessionStorage.getItem('loginFlag')
 }
@@ -12,6 +12,7 @@ const state={
 	username:'',//用户名
 	loginFlag:'',//登录状态
 }
+statValue(state);
 //触发状态
 const mutations={
 	loginFlag(state){

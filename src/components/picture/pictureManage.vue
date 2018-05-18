@@ -49,19 +49,17 @@
 			<el-table ref="multipleTable" border :data="tableData" :stripe="true" tooltip-effect="dark" @selection-change="handleSelectionChange">
 				<el-table-column type="selection" width="40">
 				</el-table-column>
-				<el-table-column label="ID" width="80" sortable prop="id">
+				<el-table-column label="ID" width="70" sortable prop="id">
 					<template slot-scope="scope">{{ scope.row.id }}</template>
 				</el-table-column>
 				<el-table-column prop="pictureClass" label="分类"  show-overflow-tooltip>
 				</el-table-column>
-				<el-table-column prop="imageUrl" label="封面" width="100">
+				<el-table-column prop="imageUrl" label="封面" min-width="100">
 					<template slot-scope="scope">
-				        <img :src="scope.row.imageUrl" alt="" />
+				        <img :src="scope.row.imageUrl" alt="" width="80%"/>
 				    </template>
 				</el-table-column>
-				<el-table-column prop="source" label="图片名称" show-overflow-tooltip>
-				</el-table-column>
-				<el-table-column prop="tags" label="标签" show-overflow-tooltip>
+				<el-table-column prop="picName" label="图片名称">
 				</el-table-column>
 				<el-table-column prop="updateTime" label="更新时间" show-overflow-tooltip>
 				</el-table-column>
@@ -104,69 +102,19 @@
 		data(){
 			return{
 				tableData: [{
-		          id: 1,
-		          pictureClass: '分类名称',
-		          imageUrl: '../../assets/logo.png',
-		          source: '新闻',
-		          updateTime: '2014-6-11 11:11:42',
-		          num: '21212',
-		          state: '草稿'
+			        id: 1,
+			        pictureClass: '分类名称',
+			        imageUrl:require('../../assets/pic.jpg'),
+			        picName:'现代简约白色餐厅',
+			        updateTime: '2014-6-11 11:11:42',
+			        state: '草稿'
 		        }, {
-		         id: 2,
-		          title: '资讯标题',
-		          consultClass: '行业动态',
-		          source: '新闻',
-		          updateTime: '2014-6-11 11:11:42',
-		          num: '21212',
-		          state: '草稿'
-		        }, {
-		          id: 3,
-		          title: '资讯标题',
-		          consultClass: '行业动态',
-		          source: '新闻',
-		          updateTime: '2014-6-11 11:11:42',
-		          num: '21212',
-		          state: '草稿'
-		        }, {
-		          id: 4,
-		          title: '资讯标题',
-		          consultClass: '行业动态',
-		          source: '新闻',
-		          updateTime: '2014-6-11 11:11:42',
-		          num: '21212',
-		          state: '草稿'
-		        }, {
-		          id: 5,
-		          title: '资讯标题',
-		          consultClass: '行业动态',
-		          source: '新闻',
-		          updateTime: '2014-6-11 11:11:42',
-		          num: '21212',
-		          state: '草稿'
-		        }, {
-		          id: 6,
-		          title: '资讯标题',
-		          consultClass: '行业动态',
-		          source: '新闻',
-		          updateTime: '2014-6-11 11:11:42',
-		          num: '21212',
-		          state: '草稿'
-		        }, {
-		          id: 7,
-		          title: '资讯标题',
-		          consultClass: '行业动态',
-		          source: '新闻',
-		          updateTime: '2014-6-11 11:11:42',
-		          num: '21212',
-		          state: '草稿'
-		        }, {
-		          id: 8,
-		          title: '资讯标题',
-		          consultClass: '行业动态',
-		          source: '新闻',
-		          updateTime: '2014-6-11 11:11:42',
-		          num: '21212',
-		          state: '草稿'
+		        	id: 2,
+			        pictureClass: '分类名称',
+			        imageUrl:require('../../assets/pic.jpg'),
+			        picName:'现代简约白色餐厅',
+			        updateTime: '2014-6-11 11:11:42',
+			        state: '草稿'
 		        }],
 		        multipleSelection: [],
 		        multipleFlag:false,//全选状态
@@ -199,7 +147,7 @@
 		    },
 		     //添加
 		    addPicture(){
-		    	this.$router.push({path:'/consult/addPicture'})
+		    	this.$router.push({path:'/picture/addPicture'})
 		    },
 		    //编辑
 		    handleEdit(index, row) {

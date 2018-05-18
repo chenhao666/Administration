@@ -12,6 +12,8 @@ import Consult from '@/components/consult/consultManage'
 import AddConsult from '@/components/consult/addConsult'
 //图片管理
 import Picture from '@/components/picture/pictureManage'
+//添加图片
+import AddPicture from '@/components/picture/addPicture'
 //角色管理
 import RoleManage from '@/components/power/roleManage'
 //权限管理
@@ -72,6 +74,16 @@ export default new Router({
       		path:'pictureManage',
       		name:'图片管理',
       		component:Picture,
+      		beforeEnter:(to,from,next)=>{
+		      	//导航选中
+		      	sessionStorage.setItem('nav','2-1')
+		      	next();
+	      	}
+      	},
+      	{
+      		path:'picture/addPicture',
+      		name:'添加图片',
+      		component:AddPicture,
       		beforeEnter:(to,from,next)=>{
 		      	//导航选中
 		      	sessionStorage.setItem('nav','2-1')
